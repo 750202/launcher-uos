@@ -1,0 +1,107 @@
+name: Build Debian Package
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y \
+            qt5-qmake \
+            qtbase5-dev \
+            qtdeclarative5-dev \
+            qtquickcontrols2-5-dev \
+            qml-module-qtquick-controls2 \
+            qml-module-qtquick-window2 \
+            qml-module-qtquick-layouts \
+            qml-module-qtquick2 \
+            qml-module-qtqml-models2 \
+            libqt5sql5-sqlite \
+            cmake \
+            build-essential \
+            debhelper \
+            dpkg-dev \
+            devscripts \
+            git
+
+    - name: Make debian scripts executable
+      run: |
+        chmod +x debian/postinst
+        chmod +x debian/prerm
+        chmod +x debian/rules
+
+    - name: Build project
+      run: |
+        mkdir -p build && cd build
+        cmake -DCMAKE_BUILD_TYPE=Release ..
+        make -j$(nproc)
+
+    - name: Build Debian package
+      run: |
+        dpkg-buildpackage -us -uc -b
+
+    - name: Find and rename deb file
+      run: |
+        DEB_FILE=$(ls ../*.deb 2>/dev/null | head -1)
+        if [ -n "$DEB_FILE" ]; then
+          mv "$DEB_FILE" launcher-amd64.deb
+        else
+          # 手动构建 deb
+          mkdir -p pkg/DEBIAN
+          mkdir -p pkg/usr/bin
+          mkdir -p pkg/usr/share/applications
+          mkdir -p pkg/usr/share/icons/hicolor/scalable/apps
+          cp build/Launcher pkg/usr/bin/
+          cp resources/data/launcher.desktop pkg/usr/share/applications/ 2>/dev/null || true
+          cp resources/icons/launcher.svg pkg/usr/share/icons/hicolor/scalable/apps/ 2>/dev/null || true
+          cat > pkg/DEBIAN/control << CONTROL
+        Package: launcher
+        Version: 1.0.0
+        Section: utils
+        Priority: optional
+        Architecture: amd64
+        Depends: libqt5core5a, libqt5quick5, libqt5qml5, libqt5sql5, qml-module-qtquick-controls2
+        Maintainer: 75020 <554945671@qq.com>
+        Description: Launcher - 聚焦搜索启动器
+         快速搜索并启动应用程序和文件。
+        CONTROL
+          dpkg-deb --build pkg launcher-amd64.deb
+        fi
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: launcher-deb
+        path: launcher-amd64.deb
+
+    - name: Create Release
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: softprops/action-gh-release@v1
+      with:
+        files: launcher-amd64.deb
+        body: |
+          # Launcher - 聚焦搜索启动器
+
+          ## 安装方法
+          ```bash
+          sudo dpkg -i launcher-amd64.deb
+          sudo apt-get install -f
+          ```
+
+          ## 使用
+          - 按 `Ctrl+Q` 唤起搜索框
+          - 输入搜索内容
+          - 点击结果启动应用或打开文件
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
