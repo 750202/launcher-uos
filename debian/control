@@ -8,7 +8,6 @@ Build-Depends: debhelper-compat (= 13),
                  qtdeclarative5-dev,
                  qt5-qmake,
                  qtquickcontrols2-5-dev
-
 Standards-Version: 4.6.0
 Homepage: https://github.com/750202/launcher
 Vcs-Git: https://github.com/750202/launcher.git
