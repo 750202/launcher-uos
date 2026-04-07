@@ -1,0 +1,35 @@
+Source: launcher
+Section: utils
+Priority: optional
+Maintainer: 75020 <554945671@qq.com>
+Build-Depends: debhelper-compat (= 13),
+                 cmake,
+                 qtbase5-dev,
+                 qtdeclarative5-dev,
+                 qt5-qmake,
+                 qtquickcontrols2-5-dev
+
+Standards-Version: 4.6.0
+Homepage: https://github.com/750202/launcher
+Vcs-Git: https://github.com/750202/launcher.git
+Vcs-Browser: https://github.com/750202/launcher
+
+Package: launcher
+Architecture: amd64
+Depends: ${shlibs:Depends},
+         libqt5core5a,
+         libqt5quick5,
+         libqt5qml5,
+         libqt5sql5,
+         libqt5network5,
+         qml-module-qtquick-controls2,
+         qml-module-qtquick-window2,
+         qml-module-qtquick-layouts
+Description: 聚焦搜索启动器 for Deepin 25
+ 一个类似于 macOS Spotlight 的快速搜索启动器，专为 Deepin 25 设计。
+ .
+ 特性:
+  - 应用搜索：支持中文和拼音搜索
+  - 文件搜索：按类型、时间、大小过滤
+  - 全局快捷键：Ctrl+Q 唤起
+  - Deepin DDE 风格界面

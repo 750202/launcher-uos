@@ -1,0 +1,18 @@
+<RCC>
+    <qresource prefix="/">
+        <!-- QML files -->
+        <file>qml/Main.qml</file>
+
+        <!-- QML components -->
+        <file>qml/components/GlassCard.qml</file>
+        <file>qml/components/SearchBar.qml</file>
+        <file>qml/components/CategoryButton.qml</file>
+        <file>qml/components/SearchResults.qml</file>
+        <file>qml/components/ResultItem.qml</file>
+        <file>qml/components/EmptyState.qml</file>
+
+        <!-- Icons -->
+        <file>resources/icons/app.png</file>
+        <file>resources/icons/file.png</file>
+    </qresource>
+</RCC>

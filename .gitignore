@@ -1,0 +1,42 @@
+# Build files
+build/
+*.o
+*.so
+*.a
+*.exe
+*.app
+*.dylib
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+
+# Qt
+*.user
+*.autosave
+moc_*.cpp
+qrc_*.cpp
+ui_*.h
+*.qmlc
+*.jsc
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Database (local data)
+*.db
+*.db-shm
+*.db-wal
+
+# Logs
+*.log

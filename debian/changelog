@@ -1,0 +1,10 @@
+launcher (1.0.0) unstable; urgency=medium
+
+  * Initial release for Deepin 25
+  * Node 1 completion: Infrastructure and mock data
+  * Application search with pinyin support
+  * File search with filtering
+  * Global hotkey (Ctrl+Q)
+  * DDE style interface
+
+ -- 75020 <554945671@qq.com>  Wed, 01 Jan 2025 00:00:00 +0000

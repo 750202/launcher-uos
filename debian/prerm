@@ -1,0 +1,7 @@
+#!/bin/bash
+set -e
+
+# Update icon cache before removal
+if [ -x /usr/bin/gtk-update-icon-cache ]; then
+    /usr/bin/gtk-update-icon-cache -q /usr/share/icons/hicolor
+fi

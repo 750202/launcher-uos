@@ -1,0 +1,23 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+%:
+	dh $@
+
+# Skip installation of icon files (they are placeholders)
+override_dh_install:
+	dh_install --exclude=.gitignore --exclude=build
+
+override_dh_auto_configure:
+	dh_auto_configure -- -DCMAKE_BUILD_TYPE=Release
+
+override_dh_auto_build:
+	dh_auto_build -- -j$(nproc)
+
+override_dh_auto_install:
+	dh_auto_install -- DESTDIR=debian/tmp
+	mkdir -p debian/tmp/usr/bin
+	install -m 755 build/Launcher debian/tmp/usr/bin/
