@@ -1,0 +1,18 @@
+[Desktop Entry]
+Version=1.0
+Name=Launcher
+Name[zh_CN]=聚焦搜索
+GenericName=Application Launcher
+GenericName[zh_CN]=应用启动器
+Comment=Quick search and launch applications and files
+Comment[zh_CN]=快速搜索并启动应用程序和文件
+Exec=Launcher
+Icon=launcher
+Terminal=false
+Type=Application
+Categories=Utility;System;Qt;
+Keywords=search;launcher;spotlight;
+Keywords[zh_CN]=搜索;启动器;
+StartupNotify=true
+DBusActivatable=false
+SingleMainWindow=true
