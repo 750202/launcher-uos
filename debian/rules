@@ -16,8 +16,3 @@ override_dh_auto_configure:
 
 override_dh_auto_build:
 	dh_auto_build -- -j$(nproc)
-
-override_dh_auto_install:
-	dh_auto_install -- DESTDIR=debian/tmp
-	mkdir -p debian/tmp/usr/bin
-	install -m 755 build/Launcher debian/tmp/usr/bin/
