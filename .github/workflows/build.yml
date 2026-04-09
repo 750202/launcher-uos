@@ -72,6 +72,7 @@ jobs:
         cp build/Launcher pkg/usr/bin/
         cp resources/data/launcher.desktop pkg/usr/share/applications/ 2>/dev/null || true
         cp resources/icons/launcher.svg pkg/usr/share/icons/hicolor/scalable/apps/ 2>/dev/null || true
+        # control file
         cat > pkg/DEBIAN/control << CONTROL
         Package: launcher
         Version: 1.0.0
@@ -83,6 +84,26 @@ jobs:
         Description: Launcher - 聚焦搜索启动器
          快速搜索并启动应用程序和文件。
         CONTROL
+        # postinst script (ignore icon cache errors)
+        cat > pkg/DEBIAN/postinst << POSTINST
+        #!/bin/bash
+        set -e
+        if [ -x /usr/bin/update-desktop-database ]; then
+            update-desktop-database /usr/share/applications > /dev/null 2>&1 || true
+        fi
+        if [ -x /usr/bin/gtk-update-icon-cache ]; then
+            gtk-update-icon-cache -q /usr/share/icons/hicolor 2>/dev/null || true
+        fi
+        POSTINST
+        # prerm script
+        cat > pkg/DEBIAN/prerm << PRERM
+        #!/bin/bash
+        set -e
+        if [ -x /usr/bin/gtk-update-icon-cache ]; then
+            gtk-update-icon-cache -q /usr/share/icons/hicolor 2>/dev/null || true
+        fi
+        PRERM
+        chmod 755 pkg/DEBIAN/postinst pkg/DEBIAN/prerm
         dpkg-deb --build pkg launcher-amd64.deb
 
     - name: Upload artifact
