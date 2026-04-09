@@ -1,11 +1,21 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
+import QtQuick.Window 2.15
 import Launcher 1.0
 
-Item {
+ApplicationWindow {
     id: root
     width: 700
     height: 600
+    visible: true
+
+    // 窗口属性：无边框、置顶、透明背景
+    flags: Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint | Qt.Window
+    color: "transparent"
+
+    // 窗口居中（使用 Screen Attached Property）
+    x: Screen.virtualX + (Screen.width - width) / 2
+    y: Screen.virtualY + (Screen.height - height) / 2 - 100
 
     property string currentMode: ""
     property bool showResults: currentMode !== ""

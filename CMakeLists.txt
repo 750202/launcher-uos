@@ -7,18 +7,19 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-# Qt 5 自动检测
-# 先尝试 Qt5，失败则尝试 Qt6
-find_package(Qt5 COMPONENTS Core Quick Qml Sql Network Gui Widgets QUIET)
+# Qt 版本选择
+# deepin25 使用 Qt6，优先 Qt6 以避免 Qt5/Qt6 混用导致的崩溃
+# 参考：https://github.com/linuxdeepin/dde-control-center/blob/master/docs/v25-dcc-interface.zh_CN.md
+find_package(Qt6 COMPONENTS Core Quick Qml Sql Network Gui Widgets QUIET)
 
-if (Qt5_FOUND)
-    message(STATUS "Using Qt 5")
-    set(QT_VERSION_MAJOR 5)
+if (Qt6_FOUND)
+    message(STATUS "Using Qt 6 (recommended for deepin25)")
+    set(QT_VERSION_MAJOR 6)
 else()
-    find_package(Qt6 COMPONENTS Core Quick Qml Sql Network Gui Widgets QUIET)
-    if (Qt6_FOUND)
-        message(STATUS "Using Qt 6")
-        set(QT_VERSION_MAJOR 6)
+    find_package(Qt5 COMPONENTS Core Quick Qml Sql Network Gui Widgets QUIET)
+    if (Qt5_FOUND)
+        message(STATUS "Using Qt 5 (fallback for older systems)")
+        set(QT_VERSION_MAJOR 5)
     else()
         message(FATAL_ERROR "Neither Qt5 nor Qt6 was found. Please install Qt.")
     endif()
