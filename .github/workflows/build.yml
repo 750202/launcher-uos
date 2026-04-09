@@ -16,20 +16,18 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Set up dependencies
+    - name: Set up dependencies (Qt6 for deepin25)
       run: |
         sudo apt-get update
         sudo apt-get install -y \
-            qt5-qmake \
-            qtbase5-dev \
-            qtdeclarative5-dev \
-            qtquickcontrols2-5-dev \
-            qml-module-qtquick-controls2 \
-            qml-module-qtquick-window2 \
-            qml-module-qtquick-layouts \
-            qml-module-qtquick2 \
-            qml-module-qtqml-models2 \
-            libqt5sql5-sqlite \
+            qt6-base-dev \
+            qt6-declarative-dev \
+            qt6-tools-dev \
+            qml6-module-qtquick-controls \
+            qml6-module-qtquick-window \
+            qml6-module-qtquick-layouts \
+            qml6-module-qtqml-models \
+            libqt6sql6-sqlite \
             cmake \
             build-essential \
             debhelper \
@@ -73,7 +71,7 @@ jobs:
         Section: utils
         Priority: optional
         Architecture: amd64
-        Depends: libqt5core5a, libqt5quick5, libqt5qml5, libqt5sql5, qml-module-qtquick-controls2
+        Depends: libqt6core6, libqt6quick6, libqt6qml6, libqt6sql6, qml6-module-qtquick-controls
         Maintainer: 75020 <554945671@qq.com>
         Description: Launcher - 聚焦搜索启动器
          快速搜索并启动应用程序和文件。
