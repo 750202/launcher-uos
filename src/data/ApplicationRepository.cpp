@@ -98,7 +98,11 @@ bool ApplicationRepository::launchApplication(const Application& app) const
     // 使用 QProcess 启动应用
     QProcess process;
     process.setProgram(exec);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     process.startDetached();
+#else
+    process.startDetached(exec);
+#endif
 
     qDebug() << "Launching application:" << app.name() << "exec:" << exec;
     return true;
@@ -190,7 +194,11 @@ Application ApplicationRepository::parseDesktopFile(const QString& filePath) con
         } else if (key == "Exec") {
             app.setExec(value);
         } else if (key == "Categories") {
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
             app.setCategories(value.split(';', Qt::SkipEmptyParts));
+#else
+            app.setCategories(value.split(';', QString::SkipEmptyParts));
+#endif
         } else if (key == "NoDisplay") {
             app.setNoDisplay(value.toLower() == "true");
         } else if (key == "Hidden") {

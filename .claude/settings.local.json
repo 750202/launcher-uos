@@ -18,7 +18,14 @@
       "Bash(curl -sL \"https://raw.githubusercontent.com/linuxdeepin/dde-shell/master/docs/plugin/API_zh_CN.md\")",
       "Bash(grep -n \"import QtQuick\" qml/*.qml qml/components/*.qml)",
       "Bash(curl -s \"https://api.github.com/repos/750202/launcher-uos/actions/runs?per_page=3\")",
-      "Bash(python3 -c ':*)"
+      "Bash(python3 -c ':*)",
+      "Bash(curl -s \"https://api.github.com/repos/750202/launcher-uos/actions/runs/24169286865\")",
+      "Bash(curl -s \"https://api.github.com/repos/750202/launcher-uos/actions/runs/24169286865/jobs\")",
+      "Bash(curl -s -H \"Accept: application/vnd.github.v3+json\" \"https://api.github.com/repos/750202/launcher-uos/actions/runs/24169286865/logs\" -L)",
+      "WebSearch",
+      "Bash(curl -s \"https://api.github.com/repos/750202/launcher-uos/actions/runs/24169511890\")",
+      "Bash(curl -s \"https://api.github.com/repos/750202/launcher-uos/actions/runs/24169511890/jobs\")",
+      "Bash(curl -s \"https://api.github.com/repos/750202/launcher-uos/actions/runs/24169779603/artifacts\")"
     ]
   }
 }
